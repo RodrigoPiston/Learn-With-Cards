@@ -1,116 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aplicación de Aprendizaje de Sonidos</title>
     <style>
-        body {
-            background-color: #b3d9ff;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            border: 2px solid #ffeac5;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            width: 150px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .card img {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            width: 100%;
-            height: auto;
-        }
-        .card h2 {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-        .load-more {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 20px 0;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+      body {
+        background-color: #b3d9ff;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+      }
+      .card {
+        border: 2px solid #ffeac5;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        width: 200px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: #fff;
+      }
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      .card img {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .card h2 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      .bg-cartoon {
+        background-image: url("https://images.unsplash.com/photo-1579546928686-286c9fbde1ec?q=80&w=2739&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body class="bg-blue-100 bg-cartoon">
     <div id="grid-container" class="container">
-        <!-- Cards will be inserted here dynamically -->
+      <!-- Cards will be inserted here dynamically -->
     </div>
-    <button id="load-more" class="load-more">Cargar Más</button>
     <script>
-        var items = [
-            { name: 'Gato', img: 'https://source.unsplash.com/featured/300x200?cat,cartoon', sound: 'https://www.soundjay.com/button/sounds/button-3.mp3' },
-            { name: 'Perro', img: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2535&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', sound: 'https://www.soundjay.com/button/sounds/button-2.mp3' },
-            { name: 'Auto', img: 'https://images.unsplash.com/photo-1516771317026-14d76f5396e5?q=80&w=2667&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', sound: 'https://www.soundjay.com/button/sounds/button-4.mp3' },
-            { name: 'Pájaro', img: 'https://images.unsplash.com/photo-1606567595334-d39972c85dbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFqYXJvfGVufDB8fDB8fHww', sound: 'https://www.soundjay.com/button/sounds/button-1.mp3' },
-            { name: 'Vaca', img: 'https://source.unsplash.com/featured/300x200?cow,cartoon', sound: 'https://www.soundjay.com/button/sounds/button-5.mp3' },
-            { name: 'Oveja', img: 'https://source.unsplash.com/featured/300x200?sheep,cartoon', sound: 'https://www.soundjay.com/button/sounds/button-6.mp3' },
-            { name: 'Elefante', img: 'https://source.unsplash.com/featured/300x200?elephant,cartoon', sound: 'https://www.soundjay.com/button/sounds/button-7.mp3' },
-            { name: 'León', img: 'https://source.unsplash.com/featured/300x200?lion,cartoon', sound: 'https://www.soundjay.com/button/sounds/button-8.mp3' },
-            { name: 'Manzana', img: 'https://images.unsplash.com/photo-1589217157232-464b505b197f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8TWFuemFuYXxlbnwwfHwwfHx8MA%3D%3D', sound: 'https://www.soundjay.com/button/sounds/button-9.mp3' },
-            { name: 'Banana', img: 'https://images.unsplash.com/photo-1528825871115-3581a5387919?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFuYW5hfGVufDB8fDB8fHww', sound: 'https://www.soundjay.com/button/sounds/button-10.mp3' },
-            { name: 'Agua', img: 'https://ae01.alicdn.com/kf/HTB1L9TUSXXXXXaaapXXq6xXFXXXc/350-ML-Baby-Water-Bottle-Kid-Bottles-With-Straw-Child-Drinking-Bottle-for-Water-Sport-Feeding.jpg', sound: 'https://www.soundjay.com/button/sounds/button-11.mp3' },
-            { name: 'Juguete', img: 'https://source.unsplash.com/featured/300x200?toy', sound: 'https://www.soundjay.com/button/sounds/button-12.mp3' }
-        ];
+      var items = [
+        {
+          name: "Agua",
+          img: "https://ae01.alicdn.com/kf/HTB1L9TUSXXXXXaaapXXq6xXFXXXc/350-ML-Baby-Water-Bottle-Kid-Bottles-With-Straw-Child-Drinking-Bottle-for-Water-Sport-Feeding.jpg",
+          sound: "https://www.soundjay.com/button/sounds/button-11.mp3",
+        },
+        {
+          name: "Juguete",
+          img: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8anVndWV0ZXxlbnwwfHwwfHx8MA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-12.mp3",
+        },
+        {
+          name: "Banana",
+          img: "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFuYW5hfGVufDB8fDB8fHww",
+          sound: "https://www.soundjay.com/button/sounds/button-10.mp3",
+        },
+        {
+          name: "Manzana",
+          img: "https://images.unsplash.com/photo-1589217157232-464b505b197f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8TWFuemFuYXxlbnwwfHwwfHx8MA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-9.mp3",
+        },
+        {
+          name: "Gato",
+          img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2643&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-3.mp3",
+        },
+        {
+          name: "Perro",
+          img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=2535&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-2.mp3",
+        },
+        {
+          name: "Auto",
+          img: "https://images.unsplash.com/photo-1516771317026-14d76f5396e5?q=80&w=2667&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-4.mp3",
+        },
+        {
+          name: "Pájaro",
+          img: "https://images.unsplash.com/photo-1606567595334-d39972c85dbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFqYXJvfGVufDB8fDB8fHww",
+          sound: "https://www.soundjay.com/button/sounds/button-1.mp3",
+        },
+        {
+          name: "Vaca",
+          img: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-5.mp3",
+        },
+        {
+          name: "Oveja",
+          img: "https://images.unsplash.com/photo-1511117833895-4b473c0b85d6?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-6.mp3",
+        },
+        {
+          name: "Elefante",
+          img: "https://images.unsplash.com/photo-1505148230895-d9a785a555fa?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-7.mp3",
+        },
+        {
+          name: "León",
+          img: "https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?q=80&w=2586&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-8.mp3",
+        },
+        {
+          name: "Osito",
+          img: "https://images.unsplash.com/photo-1615486363973-f79d875780cf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGp1Z3VldGV8ZW58MHx8MHx8fDA%3D",
+          sound: "https://www.soundjay.com/button/sounds/button-12.mp3",
+        },
+      ];
 
-        var currentItemIndex = 0;
-        var itemsPerLoad = 4;
-
-        function createCard(item) {
-            var card = document.createElement('div');
-            card.className = 'card';
-            card.setAttribute('data-sound', item.sound);
-            card.setAttribute('data-name', item.name);
-            card.innerHTML = `
+      function createCard(item) {
+        var card = document.createElement("div");
+        card.className = "card";
+        card.setAttribute("data-sound", item.sound);
+        card.setAttribute("data-name", item.name);
+        card.innerHTML = `
                 <img src="${item.img}" alt="${item.name} Imagen">
                 <h2>${item.name}</h2>
             `;
-            card.addEventListener('click', function() {
-                var audio = new Audio(card.getAttribute('data-sound'));
-                audio.play();
-                var msg = new SpeechSynthesisUtterance(card.getAttribute('data-name'));
-                msg.lang = 'es-ES';
-                window.speechSynthesis.speak(msg);
-            });
-            return card;
-        }
-
-        function loadItems() {
-            var container = document.getElementById('grid-container');
-            var end = currentItemIndex + itemsPerLoad;
-            for (; currentItemIndex < end && currentItemIndex < items.length; currentItemIndex++) {
-                var item = items[currentItemIndex];
-                var card = createCard(item);
-                container.appendChild(card);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadItems();
-            var loadMoreButton = document.getElementById('load-more');
-            loadMoreButton.addEventListener('click', loadItems);
+        card.addEventListener("click", function () {
+          var audio = new Audio(card.getAttribute("data-sound"));
+          audio.play();
+          var msg = new SpeechSynthesisUtterance(
+            card.getAttribute("data-name")
+          );
+          msg.lang = "es-ES";
+          window.speechSynthesis.speak(msg);
         });
+        return card;
+      }
+
+      function loadItems() {
+        var container = document.getElementById("grid-container");
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          var card = createCard(item);
+          container.appendChild(card);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadItems();
+      });
     </script>
-</body>
+  </body>
 </html>
